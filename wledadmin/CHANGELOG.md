@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0
+
+- Atualização de firmware: nova opção **Apagar as luzes durante a atualização**, marcada
+  por padrão. Em algumas lâmpadas ESP8266, atualizar com a luz acesa faz o firmware novo
+  ser descartado no reboot. No fim (inclusive se a atualização falhar), as luzes voltam
+  como estavam: ligada/desligada, brilho e o preset ativo.
+- wledadmin 0.8.0.
+
 ## 0.7.0
 
 - Opção **ssl**: HTTPS na porta do acesso direto, com o certificado da pasta `/ssl` do

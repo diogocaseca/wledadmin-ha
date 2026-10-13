@@ -1,7 +1,7 @@
 name: WLED Admin
 # Ao lançar uma versão nova do wledadmin: crie a tag lá, atualize WLEDADMIN_VERSION no
 # Dockerfile e esta versão (e o CHANGELOG.md).
-version: "0.7.0"
+version: "0.8.0"
 slug: wledadmin
 description: >-
   Painel para administrar vários dispositivos WLED: status, ações em massa, backup e
