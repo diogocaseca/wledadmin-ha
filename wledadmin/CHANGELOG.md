@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.0
+
+- Opção **ssl**: HTTPS na porta do acesso direto, com o certificado da pasta `/ssl` do
+  Home Assistant (padrão `fullchain.pem`/`privkey.pem`, os nomes do App DuckDNS). O
+  certificado renovado é aplicado sozinho, sem reiniciar. Se o certificado estiver ausente
+  ou inválido, o acesso direto não sobe e o painel da barra lateral continua funcionando.
+- O botão **Abrir interface web** usa https quando a opção estiver ligada.
+- O app passa a encerrar com código 0 ao ser parado (antes saía com 143, e o Supervisor
+  registrava um aviso).
+- wledadmin 0.7.0.
+
 ## 0.6.1
 
 - HEALTHCHECK no contêiner: com a chave **Watchdog** ligada, o Home Assistant reinicia o

@@ -43,11 +43,27 @@ Na aba **Configuração** do app, seção **Rede**:
 O painel da barra lateral usa uma porta própria, escolhida automaticamente pelo Home
 Assistant, que só aceita conexões do próprio Home Assistant.
 
+### HTTPS no acesso direto
+
+Ligue a opção **ssl** para usar `https://` na porta do acesso direto, com o certificado
+que o Home Assistant já tem na pasta `/ssl` (por exemplo, o do App DuckDNS). Os nomes
+padrão (`fullchain.pem` e `privkey.pem`) são os que o App DuckDNS usa.
+
+- Acesse pelo **nome do domínio** (ex.: `https://seudominio.duckdns.org:8000`). Pelo IP, o
+  navegador mostra aviso, porque o certificado é do domínio.
+- Com o HTTPS ligado, `http://` nessa porta deixa de funcionar.
+- Quando o certificado é renovado, o WLED Admin passa a usar o novo sozinho (verifica a
+  cada hora), sem reiniciar.
+- Se o certificado não for encontrado ou for inválido, o acesso direto não sobe, o painel
+  da barra lateral continua funcionando, e a aba **Log** explica o motivo.
+
 ## Opções
 
 | Opção | Padrão | Descrição |
 |---|---|---|
 | `ingress` | ligado | Aceita o acesso pela barra lateral |
+| `ssl` | desligado | HTTPS na porta do acesso direto |
+| `certfile` / `keyfile` | `fullchain.pem` / `privkey.pem` | Arquivos em `/ssl` |
 | `log_level` | `info` | Detalhe do log |
 | `scan_subnets` | vazio | Faixas sugeridas para a varredura (ex.: `192.168.1.0/24`) |
 | `github_token` | vazio | Token do GitHub, só se a lista de versões de firmware atingir o limite da API |

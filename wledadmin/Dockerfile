@@ -5,7 +5,7 @@ FROM python:3.12-slim-bookworm
 ARG BUILD_VERSION
 ARG BUILD_ARCH
 # Versão (tag) do wledadmin instalada. Mantenha igual à "version" do config.yaml.
-ARG WLEDADMIN_VERSION=0.6.0
+ARG WLEDADMIN_VERSION=0.7.0
 ARG WLEDADMIN_SOURCE=https://github.com/diogocaseca/wledadmin/archive/refs/tags/v${WLEDADMIN_VERSION}.tar.gz
 
 COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /usr/local/bin/uv

@@ -4,6 +4,18 @@ configuration:
     description: >-
       Allows opening WLED Admin from the Home Assistant sidebar without an extra login.
       When off, only direct access on port 8000 (with the WLED Admin login) works.
+  ssl:
+    name: HTTPS on direct access
+    description: >-
+      Serves HTTPS on the direct access port, using the certificate from the Home
+      Assistant /ssl folder (e.g. from the DuckDNS app). When on, http:// on that port
+      stops working. The sidebar panel is not affected.
+  certfile:
+    name: Certificate file
+    description: File name in /ssl (DuckDNS default, fullchain.pem).
+  keyfile:
+    name: Private key file
+    description: File name in /ssl (DuckDNS default, privkey.pem).
   log_level:
     name: Log level
     description: Amount of detail in the app log.

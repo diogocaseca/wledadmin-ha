@@ -16,6 +16,7 @@ import urllib.request
 
 OPTIONS_FILE = "/data/options.json"
 HEALTH_PORT_FILE = "/tmp/wledadmin-health-port"  # lido pelo healthcheck.py
+SSL_DIR = "/ssl"
 SUPERVISOR_INFO = "http://supervisor/addons/self/info"
 DEFAULT_PORT = 8000
 
@@ -82,13 +83,28 @@ def main() -> None:
         env["WLEDADMIN_SCAN_SUBNETS"] = str(opts["scan_subnets"])
     if opts.get("github_token"):
         env["WLEDADMIN_GITHUB_TOKEN"] = str(opts["github_token"])
+    use_ssl = bool(opts.get("ssl")) and bool(direct)
+    if use_ssl:
+        # Nomes validados pelo schema (sem barras); o wledadmin explica no log se faltar.
+        env["WLEDADMIN_SSL_CERTFILE"] = os.path.join(SSL_DIR, opts.get("certfile") or
+                                                     "fullchain.pem")
+        env["WLEDADMIN_SSL_KEYFILE"] = os.path.join(SSL_DIR, opts.get("keyfile") or
+                                                    "privkey.pem")
 
-    log("acesso direto: " + (f"porta {direct}" if direct else "desligado")
+    log("acesso direto: " + (f"porta {direct}" + (" (https)" if use_ssl else "")
+                             if direct else "desligado")
         + " · painel da barra lateral: "
         + ("desativado na opção ingress" if env["WLEDADMIN_INGRESS"] != "true"
            else f"porta {ingress_port}" if ingress_port else "indisponível"))
+    # Uma linha "esquema porta" por porta: o healthcheck considera vivo se qualquer uma
+    # responder (se o certificado for inválido, a porta direta nem sobe, e o painel basta).
+    targets = []
+    if direct:
+        targets.append(f"{'https' if use_ssl else 'http'} {direct}")
+    if ingress_port:
+        targets.append(f"http {ingress_port}")
     with open(HEALTH_PORT_FILE, "w", encoding="ascii") as f:
-        f.write(str(direct or ingress_port))
+        f.write("\n".join(targets) + "\n")
     exe = os.path.join(os.path.dirname(sys.executable), "wledadmin")
     os.execv(exe, [exe, "serve"])
 

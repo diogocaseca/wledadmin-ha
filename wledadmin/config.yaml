@@ -1,7 +1,7 @@
 name: WLED Admin
 # Ao lançar uma versão nova do wledadmin: crie a tag lá, atualize WLEDADMIN_VERSION no
 # Dockerfile e esta versão (e o CHANGELOG.md).
-version: "0.6.1"
+version: "0.7.0"
 slug: wledadmin
 description: >-
   Painel para administrar vários dispositivos WLED: status, ações em massa, backup e
@@ -22,7 +22,11 @@ host_network: true
 ports:
   8000/tcp: 8000
 hassio_api: true
-webui: "http://[HOST]:[PORT:8000]/"
+# Vira https quando a opção "ssl" estiver ligada.
+webui: "[PROTO:ssl]://[HOST]:[PORT:8000]/"
+# Certificados do HA (ex.: App DuckDNS grava fullchain.pem/privkey.pem em /ssl).
+map:
+  - type: ssl
 # Sem "watchdog" por URL: com host_network e a porta direta desligada, o Supervisor
 # verificaria a 8000 e reiniciaria o app em loop. A saúde é verificada pelo HEALTHCHECK do
 # Dockerfile, que usa a porta real; o Supervisor reinicia o app quando ele fica "unhealthy".
@@ -36,9 +40,15 @@ panel_title: WLED Admin
 
 options:
   ingress: true
+  ssl: false
+  certfile: fullchain.pem
+  keyfile: privkey.pem
   log_level: info
 schema:
   ingress: bool
+  ssl: bool
+  certfile: match(^[A-Za-z0-9._-]+$)
+  keyfile: match(^[A-Za-z0-9._-]+$)
   log_level: list(debug|info|warning|error)
   scan_subnets: str?
   github_token: password?
