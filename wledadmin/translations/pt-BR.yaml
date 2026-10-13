@@ -1,0 +1,19 @@
+configuration:
+  ingress:
+    name: Acesso pela barra lateral (Ingress)
+    description: >-
+      Permite abrir o WLED Admin pelo painel do Home Assistant, sem login extra. Desligado,
+      só o acesso direto pela porta 8000 (com o login do WLED Admin) funciona.
+  log_level:
+    name: Nível de log
+    description: Quantidade de detalhes no log do app.
+  scan_subnets:
+    name: Faixas de IP para varredura
+    description: >-
+      Faixas sugeridas na tela para procurar dispositivos sem mDNS, em CIDR separado por
+      vírgula (ex.: 192.168.1.0/24).
+  github_token:
+    name: Token do GitHub (opcional)
+    description: >-
+      Só é necessário se as consultas de versões de firmware passarem do limite de 60 por
+      hora da API do GitHub. Um token sem permissões extras basta.

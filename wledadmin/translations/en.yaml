@@ -1,0 +1,19 @@
+configuration:
+  ingress:
+    name: Sidebar access (Ingress)
+    description: >-
+      Allows opening WLED Admin from the Home Assistant sidebar without an extra login.
+      When off, only direct access on port 8000 (with the WLED Admin login) works.
+  log_level:
+    name: Log level
+    description: Amount of detail in the app log.
+  scan_subnets:
+    name: IP ranges to scan
+    description: >-
+      Ranges suggested in the UI to find devices without mDNS, as comma-separated CIDR
+      (e.g. 192.168.1.0/24).
+  github_token:
+    name: GitHub token (optional)
+    description: >-
+      Only needed if firmware release lookups exceed the GitHub API limit of 60 requests
+      per hour. A token without extra permissions is enough.

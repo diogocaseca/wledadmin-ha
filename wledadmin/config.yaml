@@ -1,0 +1,36 @@
+name: WLED Admin
+# Ao lançar uma versão nova do wledadmin: crie a tag lá, atualize WLEDADMIN_VERSION no
+# Dockerfile e esta versão (e o CHANGELOG.md).
+version: "0.5.0"
+slug: wledadmin
+description: >-
+  Painel para administrar vários dispositivos WLED: status, ações em massa, backup e
+  restauração, e atualização de firmware em lote.
+url: https://github.com/diogocaseca/wledadmin-ha
+arch:
+  - amd64
+  - aarch64
+startup: application
+boot: auto
+
+# Rede do host: necessária para a descoberta mDNS (_wled._tcp) dos dispositivos.
+host_network: true
+
+# Painel na barra lateral do HA (sem login extra). O mesmo servidor atende o acesso
+# direto pela porta 8000 (com o login do wledadmin). A opção "ingress" abaixo permite
+# recusar o acesso pelo painel.
+ingress: true
+ingress_port: 8000
+panel_icon: mdi:led-strip-variant
+panel_title: WLED Admin
+webui: "http://[HOST]:[PORT:8000]/"
+watchdog: "http://[HOST]:[PORT:8000]/healthz"
+
+options:
+  ingress: true
+  log_level: info
+schema:
+  ingress: bool
+  log_level: list(debug|info|warning|error)
+  scan_subnets: str?
+  github_token: password?
