@@ -17,3 +17,5 @@ configuration:
     description: >-
       Only needed if firmware release lookups exceed the GitHub API limit of 60 requests
       per hour. A token without extra permissions is enough.
+network:
+  8000/tcp: Direct access port (with the WLED Admin login). Leave empty to disable direct access and use only the sidebar.

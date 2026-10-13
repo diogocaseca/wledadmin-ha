@@ -1,7 +1,7 @@
 name: WLED Admin
 # Ao lançar uma versão nova do wledadmin: crie a tag lá, atualize WLEDADMIN_VERSION no
 # Dockerfile e esta versão (e o CHANGELOG.md).
-version: "0.5.0"
+version: "0.6.0"
 slug: wledadmin
 description: >-
   Painel para administrar vários dispositivos WLED: status, ações em massa, backup e
@@ -16,15 +16,22 @@ boot: auto
 # Rede do host: necessária para a descoberta mDNS (_wled._tcp) dos dispositivos.
 host_network: true
 
-# Painel na barra lateral do HA (sem login extra). O mesmo servidor atende o acesso
-# direto pela porta 8000 (com o login do wledadmin). A opção "ingress" abaixo permite
-# recusar o acesso pelo painel.
+# Acesso direto (login do WLED Admin): porta configurável na seção "Rede" do app.
+# Apagar o número desliga o acesso direto. O run.py lê a porta escolhida pela API do
+# Supervisor (hassio_api), porque com host_network o mapeamento não é aplicado pelo Docker.
+ports:
+  8000/tcp: 8000
+hassio_api: true
+webui: "http://[HOST]:[PORT:8000]/"
+# Sem "watchdog" por URL: com host_network e a porta direta desligada, o Supervisor
+# verificaria a 8000 e reiniciaria o app em loop.
+
+# Painel na barra lateral do HA (sem login extra), numa porta própria sorteada pelo HA
+# (ingress_port: 0). A opção "ingress" abaixo permite recusar o acesso pelo painel.
 ingress: true
-ingress_port: 8000
+ingress_port: 0
 panel_icon: mdi:led-strip-variant
 panel_title: WLED Admin
-webui: "http://[HOST]:[PORT:8000]/"
-watchdog: "http://[HOST]:[PORT:8000]/healthz"
 
 options:
   ingress: true

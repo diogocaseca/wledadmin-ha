@@ -30,7 +30,7 @@ ODROID, Home Assistant Green/Yellow).
 | | |
 |---|---|
 | Rede | Rede do host, necessária para a descoberta mDNS dos dispositivos |
-| Acesso | Barra lateral (Ingress, login do HA) e porta 8000 (login do wledadmin) |
+| Acesso | Barra lateral (Ingress, login do HA, porta própria escolhida pelo HA) e acesso direto (login do wledadmin, porta 8000 configurável na seção Rede, ou desligado) |
 | Dados | Pasta de dados do app (`/data`), incluída nos backups do Home Assistant |
 | Código | O Dockerfile baixa a versão marcada (tag) do wledadmin e instala as dependências travadas no `uv.lock` dela |
 

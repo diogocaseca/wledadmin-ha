@@ -17,3 +17,5 @@ configuration:
     description: >-
       Só é necessário se as consultas de versões de firmware passarem do limite de 60 por
       hora da API do GitHub. Um token sem permissões extras basta.
+network:
+  8000/tcp: Porta do acesso direto (com o login do WLED Admin). Deixe em branco para desligar o acesso direto e usar só a barra lateral.

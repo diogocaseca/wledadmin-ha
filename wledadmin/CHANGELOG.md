@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.0
+
+- Porta do acesso direto configurável na seção **Rede** do app; apagar o número desliga o
+  acesso direto.
+- O painel da barra lateral passa a usar uma porta própria, escolhida pelo Home Assistant,
+  que só aceita conexões do Home Assistant.
+- Removida a verificação de saúde por URL (o Supervisor ainda reinicia o app se o
+  processo parar, com a chave Watchdog ligada).
+- wledadmin 0.6.0.
+
 ## 0.5.0
 
 - Primeira versão do app, com o wledadmin 0.5.0: descoberta (mDNS, varredura, manual),

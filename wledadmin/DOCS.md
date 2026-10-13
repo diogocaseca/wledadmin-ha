@@ -11,16 +11,16 @@ presets, e atualização de firmware em lote. Documentação completa do painel:
 2. Os dispositivos são encontrados sozinhos por mDNS. Se algum não aparecer, use
    **Varrer rede** ou adicione pelo IP.
 3. **Troque a senha do acesso direto.** O WLED Admin também atende na porta 8000 da sua
-   rede local, com o login inicial **admin / admin**. Troque em **Configurações → Conta de
-   administrador**. Pela barra lateral o login não é pedido: quem já entrou no Home
-   Assistant está autenticado.
+   rede local (configurável, veja abaixo), com o login inicial **admin / admin**. Troque
+   em **Configurações → Conta de administrador**. Pela barra lateral o login não é pedido:
+   quem já entrou no Home Assistant está autenticado.
 
 ## Duas formas de acesso
 
 | Acesso | Endereço | Login |
 |---|---|---|
 | Barra lateral (Ingress) | Menu do Home Assistant | O do Home Assistant |
-| Direto | `http://<endereço-do-home-assistant>:8000` (botão **Abrir interface web** na página do app) | Usuário e senha do WLED Admin |
+| Direto | `http://<endereço-do-home-assistant>:<porta>` (botão **Abrir interface web** na página do app; porta padrão 8000) | Usuário e senha do WLED Admin |
 
 O acesso direto é útil para a API JSON e scripts (`curl -u usuario:senha ...`).
 
@@ -30,6 +30,18 @@ O acesso direto é útil para a API JSON e scripts (`curl -u usuario:senha ...`)
   mostrar uma página avisando que o acesso foi desativado, e só o acesso direto funciona.
 - Para apenas esconder o atalho da barra lateral, sem desativar, use a chave **Mostrar na
   barra lateral** na página do app.
+
+### Porta do acesso direto
+
+Na aba **Configuração** do app, seção **Rede**:
+
+- troque o número para usar outra porta (ex.: 8090) e reinicie o app. O botão **Abrir
+  interface web** acompanha a mudança;
+- **apague o número** para desligar o acesso direto. Aí só o painel da barra lateral
+  funciona, e nenhuma porta do WLED Admin fica aberta para a rede local.
+
+O painel da barra lateral usa uma porta própria, escolhida automaticamente pelo Home
+Assistant, que só aceita conexões do próprio Home Assistant.
 
 ## Opções
 
@@ -45,8 +57,9 @@ O intervalo do backup automático, a retenção e as opções de firmware ficam 
 
 ## Rede e porta
 
-- O app usa a **rede do host** (necessária para o mDNS). Por isso a porta **8000** é
-  usada diretamente no Home Assistant e precisa estar livre.
+- O app usa a **rede do host** (necessária para o mDNS). Por isso a porta do acesso direto
+  é aberta diretamente no Home Assistant e precisa estar livre. Se estiver ocupada, o app
+  não inicia, e a aba **Log** mostra qual porta e por quê.
 - Os dispositivos WLED precisam estar alcançáveis a partir do Home Assistant.
 
 ## Dados e backups
