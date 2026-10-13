@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1
+
+- HEALTHCHECK no contêiner: com a chave **Watchdog** ligada, o Home Assistant reinicia o
+  app também quando ele para de responder (não só quando cai). Funciona com qualquer
+  porta configurada, inclusive com o acesso direto desligado.
+
 ## 0.6.0
 
 - Porta do acesso direto configurável na seção **Rede** do app; apagar o número desliga o

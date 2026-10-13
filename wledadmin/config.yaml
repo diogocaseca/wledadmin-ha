@@ -1,7 +1,7 @@
 name: WLED Admin
 # Ao lançar uma versão nova do wledadmin: crie a tag lá, atualize WLEDADMIN_VERSION no
 # Dockerfile e esta versão (e o CHANGELOG.md).
-version: "0.6.0"
+version: "0.6.1"
 slug: wledadmin
 description: >-
   Painel para administrar vários dispositivos WLED: status, ações em massa, backup e
@@ -24,7 +24,8 @@ ports:
 hassio_api: true
 webui: "http://[HOST]:[PORT:8000]/"
 # Sem "watchdog" por URL: com host_network e a porta direta desligada, o Supervisor
-# verificaria a 8000 e reiniciaria o app em loop.
+# verificaria a 8000 e reiniciaria o app em loop. A saúde é verificada pelo HEALTHCHECK do
+# Dockerfile, que usa a porta real; o Supervisor reinicia o app quando ele fica "unhealthy".
 
 # Painel na barra lateral do HA (sem login extra), numa porta própria sorteada pelo HA
 # (ingress_port: 0). A opção "ingress" abaixo permite recusar o acesso pelo painel.

@@ -15,6 +15,7 @@ import time
 import urllib.request
 
 OPTIONS_FILE = "/data/options.json"
+HEALTH_PORT_FILE = "/tmp/wledadmin-health-port"  # lido pelo healthcheck.py
 SUPERVISOR_INFO = "http://supervisor/addons/self/info"
 DEFAULT_PORT = 8000
 
@@ -86,6 +87,8 @@ def main() -> None:
         + " · painel da barra lateral: "
         + ("desativado na opção ingress" if env["WLEDADMIN_INGRESS"] != "true"
            else f"porta {ingress_port}" if ingress_port else "indisponível"))
+    with open(HEALTH_PORT_FILE, "w", encoding="ascii") as f:
+        f.write(str(direct or ingress_port))
     exe = os.path.join(os.path.dirname(sys.executable), "wledadmin")
     os.execv(exe, [exe, "serve"])
 

@@ -23,7 +23,12 @@ RUN tar -xzf /tmp/wledadmin.tar.gz --strip-components=1 -C /opt/wledadmin \
     && uv sync --frozen --no-dev \
     && rm -rf /root/.cache
 
-COPY run.py /run.py
+COPY run.py healthcheck.py /
+
+# Com a chave Watchdog ligada na página do app, o Supervisor reinicia o app quando o
+# Docker o marca como "unhealthy" (3 falhas seguidas; 2 min de carência no início).
+HEALTHCHECK --interval=60s --timeout=10s --start-period=120s --retries=3 \
+    CMD ["/opt/wledadmin/.venv/bin/python", "/healthcheck.py"]
 
 LABEL \
     io.hass.version="${BUILD_VERSION}" \

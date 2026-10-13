@@ -62,6 +62,13 @@ O intervalo do backup automático, a retenção e as opções de firmware ficam 
   não inicia, e a aba **Log** mostra qual porta e por quê.
 - Os dispositivos WLED precisam estar alcançáveis a partir do Home Assistant.
 
+## Watchdog
+
+Ligue a chave **Watchdog** na página do app. Com ela, o Home Assistant reinicia o WLED
+Admin quando o processo cai e também quando ele para de responder: o contêiner verifica a
+cada minuto se o painel responde e, depois de 3 falhas seguidas, é marcado como "unhealthy".
+Os primeiros 2 minutos após a inicialização não contam.
+
 ## Dados e backups
 
 Tudo fica na pasta de dados do app (banco SQLite com o cadastro, as versões de backup dos
